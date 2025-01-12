@@ -33,7 +33,7 @@
             animation: fadeIn 1s ease-in-out;
         }
         .illustration {
-            background: #f5f7fa;
+            background: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -109,25 +109,37 @@
     </style>
 </head>
 <body>
+    
     <div class="container">
+
         <div class="illustration">
-            <img src="https://blogger.googleusercontent.com/img/a/AVvXsEhlNB6snLy0RoXUiXy93E3V755AZ7Hn_Nn6pdBroKZmkK2tXHN5qVHCsI5WFkbMO74A8jJ1tLRHeoSqoeaggs1rwFbzn6eO_7y7nbs8xTNdYnnci3qoKSpm8t7q6a69ydkJ4fg0Gn3reADquVAm4CrgSiW8kVOe2OvcPUpqJsjdMLt0tlFpqPFWyerK=s342-h228" alt="Ilustrasi PKL">
+            <img src="{{ asset('assets/img/login-image.jpg') }}" alt="Ilustrasi PKL">
         </div>
         <div class="login-card">
+            @if (session('errors'))
+                <div class="alert alert-danger">
+                    <ul class="p-0 m-0">
+                        @foreach (session('errors')->all() as $error)
+                            <li style="list-style: none;"><small>{{ $error }}</small></li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <h3 class="text-center mb-4">Form Login</h3>
             <div class="tab-content " id="loginTabContent">
                 <div class="tab-pane fade show active">
-                    <form>
+                    <form action="{{ route('login.prosses') }}" method="POST">
+                        @csrf
                         <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" placeholder="Masukkan Username">
+                            <input type="text" class="form-control" name="username" id="username" placeholder="Masukkan Username">
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" placeholder="Masukkan Password">
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Masukkan Password">
                         </div>
                         <div class="mb-3 text-end">
-                            <a href="#" class="text-decoration-none">Lupa password? Hubungi Admin Disini</a>
+                            <small><a href="#" class="text-decoration-none" style="font-weight:500;">Lupa password? Hubungi Admin Disini</a></small>
                         </div>
                         <button type="submit" class="btn btn-login w-100">Login</button>
                     </form>

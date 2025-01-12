@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('username')->unique(); // Jika dibutuhkan username
             $table->string('password');
-            $table->enum('role', ['siswa', 'guru', 'instansi'])->index();
+            $table->enum('role', ['admin','siswa', 'guru', 'instansi'])->index();
             
             // Kolom tambahan untuk siswa
             $table->string('kelas')->nullable()->comment('Kelas siswa');
@@ -28,12 +28,13 @@ return new class extends Migration
             
             // Kolom tambahan untuk guru
             $table->string('nip')->unique()->nullable()->comment('Nomor Induk Pegawai');
-            $table->string('mapel')->nullable()->comment('Mata pelajaran yang diajarkan');
+            // $table->string('mapel')->nullable()->comment('Mata pelajaran yang diajarkan');
 
             // Kolom tambahan untuk instansi
             $table->string('instansi_name')->nullable()->comment('Nama Instansi PKL');
             $table->string('instansi_address')->nullable()->comment('Alamat Instansi PKL');
             $table->string('instansi_contact')->nullable()->comment('Kontak Instansi PKL');
+            $table->string('foto_profile')->nullable()->comment('Foto Profile');
             
             $table->timestamps();
         });

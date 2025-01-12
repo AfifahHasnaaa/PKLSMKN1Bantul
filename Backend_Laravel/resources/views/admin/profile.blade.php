@@ -21,10 +21,10 @@
 
           <div class="card">
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-              <div class="p-3">
-                <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                <h2>User</h2>
-                <h3>Admin</h3>
+              <div class="p-3 text-center">
+                <img src="{{ asset('assets/img/foto_profile/' . auth()->user()->foto_profile) }}" alt="Profile" class="rounded-circle">
+                <h2>{{ auth()->user()->name }}</h2>
+                <h3>{{ ucfirst(auth()->user()->getRoleNames()->first()) }}</h3>
               </div>
             </div>
           </div>
@@ -49,16 +49,17 @@
                   <h5 class="card-title">Profile Details</h5>
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label ">Full Name</div>
-                    <div class="col-lg-9 col-md-8">Kevin Anderson</div>
+                    <div class="col-lg-9 col-md-8">{{ auth()->user()->name }}</div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Username</div>
+                    <div class="col-lg-9 col-md-8">{{ auth()->user()->username }}</div>
                   </div>
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Email</div>
-                    <div class="col-lg-9 col-md-8">k.anderson@example.com</div>
+                    <div class="col-lg-9 col-md-8">{{ auth()->user()->email }}</div>
                   </div>
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Password</div>
-                    <div class="col-lg-9 col-md-8">**********</div>
-                  </div>
+                  
                 </div>
 
                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
@@ -66,7 +67,7 @@
                     <div class="row mb-3">
                       <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                       <div class="col-md-8 col-lg-9">
-                        <img src="assets/img/profile-img.jpg" alt="Profile">
+                        <img src="{{ asset('assets/img/foto_profile/' . auth()->user()->foto_profile) }}" alt="Profile">
                         <div class="pt-2">
                           <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
                           <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>

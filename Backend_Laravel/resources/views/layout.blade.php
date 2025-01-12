@@ -51,8 +51,8 @@
         </li>
         <li class="nav-item dropdown pe-3">
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">User</span>
+            <img src="{{ asset('assets/img/foto_profile/' . auth()->user()->foto_profile) }}" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->user()->name }}</span>
           </a>
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
@@ -100,7 +100,7 @@
                 <span>Dashboard</span>
             </a>
         </li>
-
+        @role('admin')
         <!-- Manajemen User -->
         <li class="nav-item">
             <a class="nav-link {{ Request::is('list-user', 'tambah-user') ? '' : 'collapsed' }}" data-bs-target="#User" data-bs-toggle="collapse" href="#">
@@ -133,7 +133,8 @@
                 </li>
             </ul>
         </li>
-
+        @endrole
+        @if (!Auth::user()->hasRole('admin'))
         <!-- Jurnal -->
         <li class="nav-item">
             <a class="nav-link {{ Request::is('jurnal') ? '' : 'collapsed' }}" data-bs-target="#jurnal" data-bs-toggle="collapse" href="#">
@@ -161,7 +162,7 @@
                 </li>
             </ul>
         </li>
-
+        @endif
         <!-- Profile -->
         <li class="nav-item">
             <a class="nav-link {{ Request::is('profile') ? '' : 'collapsed' }}" href="{{ route('profile') }}">
