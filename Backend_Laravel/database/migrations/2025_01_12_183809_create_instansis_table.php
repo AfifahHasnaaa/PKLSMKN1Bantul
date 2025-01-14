@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jurusans', function (Blueprint $table) {
+        Schema::create('instansis', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_jurusan')->unique();
-            $table->string('kode_jurusan')->unique()->nullable()->comment('Kode unik untuk jurusan');
-            $table->integer('durasi_belajar')->nullable();
-            $table->text('deskripsi')->nullable();
+            // Kolom tambahan untuk instansi
+            $table->string('instansi_name')->nullable()->comment('Nama Instansi PKL');
+            $table->string('instansi_address')->nullable()->comment('Alamat Instansi PKL');
+            $table->string('instansi_contact')->nullable()->comment('Kontak Instansi PKL');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('jurusans');
+        Schema::dropIfExists('instansis');
     }
 };

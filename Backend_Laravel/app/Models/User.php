@@ -18,22 +18,14 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $guarded = [
-        'id',
-        'created_at',
-        'updated_at',
-    ];
-    
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
      * The attributes that should be hidden for serialization.
      *
      * @var list<string>
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    protected $hidden = ['password', 'remember_token'];
 
     /**
      * Get the attributes that should be cast.
@@ -52,4 +44,50 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Jurusan::class, 'jurusan_id');
     }
+
+    public function instansi()
+    {
+        return $this->belongsTo(Instansi::class, 'instansi_id');
+    }
+
+    public function tempatPkl()
+    {
+        return $this->belongsTo(Instansi::class, 'tempat_pkl');
+    }
+
+    public function jurnal()
+    {
+        return $this->belongsTo(Jurnal::class, 'jurnal_id');
+    }
+
+    /**
+     * Relasi ke jurnal sebagai siswa.
+     */
+    public function jurnalSiswa()
+    {
+        return $this->hasMany(Jurnal::class, 'id_siswa');
+    }
+
+    /**
+     * Relasi ke jurnal sebagai guru.
+     */
+    public function jurnalGuru()
+    {
+        return $this->hasMany(Jurnal::class, 'id_guru');
+    }
+
+    /**
+     * Relasi ke jurnal sebagai pembimbing instansi.
+     */
+    // public function jurnalPembimbingInstansi()
+    // {
+    //     return $this->hasMany(Jurnal::class, 'id_pembimbing_instansi');
+    // }
+
+    // Tambahkan relasi ke tabel indikator sebagai siswa
+    public function indikatorSiswa()
+    {
+        return $this->hasMany(Indikator::class, 'id_siswa');
+    }
+
 }

@@ -1,116 +1,156 @@
   @extends('layout')
   @section('title')
-  <title>Jurnal Harian</title>
+      <title>Jurnal Harian</title>
+  @endsection
+  @section('css')
+      <style>
+          .dataTables_filter {
+              margin-bottom: 1rem;
+              /* Atur jarak sesuai kebutuhan */
+          }
+      </style>
   @endsection
   @section('content')
+      <div class="pagetitle">
+          <h1>Jurnal Harian</h1>
+          <nav>
+              <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="user.html">Home</a></li>
+                  <li class="breadcrumb-item">Jurnal</li>
+                  <li class="breadcrumb-item active">Jurnal Harian</li>
+              </ol>
+          </nav>
+      </div>
 
-    <div class="pagetitle">
-      <h1>Jurnal Harian</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="user.html">Home</a></li>
-          <li class="breadcrumb-item">Jurnal</li>
-          <li class="breadcrumb-item active">Jurnal Harian</li>
-        </ol>
-      </nav>
-    </div>
+      <section class="section">
+          <div class="row">
+              <div class="col-lg-12">
+                  <div class="card">
+                      <div class="card-body">
+                          <div>
+                              @if ($errors->any())
+                                  <div class="alert alert-danger">
+                                      <ul>
+                                          @foreach ($errors->all() as $error)
+                                              <li>{{ $error }}</li>
+                                          @endforeach
+                                      </ul>
+                                  </div>
+                              @endif
+                              @if (session('success'))
+                                  <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                      {{ session('success') }}
+                                      <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                          aria-label="Close"></button>
+                                  </div>
+                              @endif
 
-    <section class="section">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="card">
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5 class="card-title">Daftar Jurnal Harian</h5>
-                <div>
-                  <button class="btn btn-success btn-sm" id="download-btn">Download 
-                    <i class="bi bi-download"></i>
-                  </button>
-                </div>
+                              <h5 class="card-title" type="button" data-bs-toggle="collapse"
+                                  data-bs-target="#detailKegiatan" aria-expanded="false" aria-controls="detailKegiatan">
+                                  Lihat Detail Kegiatan
+                              </h5>
+                              <div class="collapse mt-3" id="detailKegiatan">
+                                  <div class="ms-4" style="font-size: 0.8rem;">
+                                      <p><strong>Nama Peserta Didik:</strong> {{ $jurnal->siswa->name }}</p>
+                                      <p><strong>Dunia Kerja Tempat PKL:</strong> {{ $jurnal->instansi->instansi_name }}</p>
+                                      <p><strong>Nama Instruktur:</strong> {{ $pembimbingInstansi }}</p>
+                                      <p><strong>Nama Guru Pembimbing:</strong> {{ $jurnal->guru->name }}</p>
+                                      <p><strong>Pekerjaan/ Proyek:</strong> {{ $jurnal->posisi_magang }}</p>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="d-flex justify-content-between align-items-center mb-3">
+                              <h5 class="card-title">Daftar Jurnal Harian</h5>
+                              <div>
+                                  <a href="{{ route('indikator.tambah', ['id' => $jurnal->id]) }}"
+                                      class="btn btn-success btn-sm" id="download-btn">Tambah Indikator
+                                      <i class="bi bi-plus-square-dotted"></i>
+                                  </a>
+                              </div>
+                          </div>
+
+                          <table class="table table-striped table-hover datatable pt-2" style="font-size: 0.8rem;"
+                              id="indikatorTable">
+                              <thead class="table-primary">
+                                  <tr>
+                                      <th>Tanggal</th>
+                                      <th>Tujuan Pembelajaran</th>
+                                      <th>Deskripsi</th>
+                                      <th>Status</th>
+                                      <th>Skor</th>
+                                      <th>Aksi</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
               </div>
-
-              <table class="table table-striped table-hover datatable">
-                <thead class="table-dark">
-                  <tr>
-                    <th>Tanggal</th>
-                    <th>Tujuan Pembelajaran</th>
-                    <th>Deskripsi</th>
-                    <th>Status</th>
-                    <th>Skor</th>
-                    <th>Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>2025/01/11</td>
-                    <td>Meningkatkan pemahaman materi algoritma</td>
-                    <td>Belajar membuat flowchart</td>
-                    <td><span class="badge bg-success">Sudah</span></td>
-                    <td>--</td>
-                    <td>
-                      <button class="btn btn-warning btn-sm edit-btn" data-bs-toggle="modal" data-bs-target="#editModal"
-                        title="Edit">
-                        <i class="bi bi-pencil"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>2025/01/10</td>
-                    <td>Meningkatkan keterampilan coding</td>
-                    <td>Mempraktikkan CRUD pada Laravel</td>
-                    <td><span class="badge bg-success">Sudah</span></td>
-                    <td>--</td>
-                    <td>
-                      <button class="btn btn-warning btn-sm edit-btn" data-bs-toggle="modal" data-bs-target="#editModal"
-                        title="Edit">
-                        <i class="bi bi-pencil"></i>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
           </div>
-        </div>
-      </div>
-    </section>
-   @endsection
-   @section('modal')
-  <!-- Edit Modal -->
-  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editModalLabel">Edit Jurnal</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="edit-form">
-            <div class="mb-3">
-              <label for="edit-desc" class="form-label">Deskripsi</label>
-              <textarea class="form-control" id="edit-desc" rows="3" ></textarea>
-            </div>
-            <fieldset class="row mb-3">
-              <legend class="col-form-label col-sm-2 pt-0">Status</legend>
-              <div class="col-sm-10">
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-                  <label class="form-check-label" for="gridRadios1">
-                    Sudah
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                  <label class="form-check-label" for="gridRadios2">
-                    Belum
-                  </label>
-                </div>
-              </div>
-            </fieldset>
-            <button type="submit" class="btn btn-primary">Simpan</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-   @endsection
+      </section>
+  @endsection
+  @section('script')
+      <script>
+          $(document).ready(function() {
+              $('#indikatorTable').DataTable({
+                  processing: true,
+                  serverSide: true,
+                  ajax: "{{ route('indikator.data',['id' => $jurnal->id]) }}",
+                  columnDefs: [{
+                          targets: 0,
+                          width: '100px'
+                      }, // Lebar kolom Tanggal
+                      {
+                          targets: 1,
+                          width: '250px'
+                      }, // Lebar kolom Tujuan Pembelajaran
+                      {
+                          targets: 2,
+                          width: '250px'
+                      }, // Lebar kolom Deskripsi
+                      {
+                          targets: 3,
+                          width: '120px'
+                      }, // Lebar kolom Status
+                      {
+                          targets: 4,
+                          width: '100px'
+                      }, // Lebar kolom Skor
+                      {
+                          targets: 5,
+                          width: '150px'
+                      } // Lebar kolom Aksi
+                  ],
+                  columns: [{
+                          data: 'tanggal_submit',
+                          name: 'tanggal_submit'
+                      },
+                      {
+                          data: 'indikator',
+                          name: 'indikator'
+                      },
+                      {
+                          data: 'deskripsi',
+                          name: 'deskripsi'
+                      },
+                      {
+                          data: 'status',
+                          name: 'status'
+                      },
+                      {
+                          data: 'skor',
+                          name: 'skor'
+                      },
+                      {
+                          data: 'action',
+                          name: 'action',
+                          orderable: false,
+                          searchable: false
+                      }
+                  ]
+              });
+          });
+      </script>
+  @endsection

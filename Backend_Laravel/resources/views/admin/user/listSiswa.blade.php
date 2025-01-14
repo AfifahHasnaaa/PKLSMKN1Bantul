@@ -3,6 +3,13 @@
   @section('title')
   <title>User - Admin</title>
   @endsection
+  @section('css')
+  <style>
+    .dataTables_filter {
+        margin-bottom: 1rem; /* Atur jarak sesuai kebutuhan */
+    }
+  </style>
+  @endsection
   @section('content')
     <div class="pagetitle">
       <h1>Daftar user</h1>
@@ -15,51 +22,24 @@
       </nav>
     </div>
 
-    <table class="table table-striped table-hover datatable">
-      <thead class="table-dark">
-        <tr>
-          <th scope="col">Username</th>
-          <th scope="col">Password</th>
-          <th scope="col">Tanggal Pembuatan</th>
-          <th scope="col">Terakhir Login</th>
-          <th scope="col">Opsi</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Brandon</td>
-          <td>bnnjfu</td>
-          <td>2016-05-10</td>
-          <td>2016-05-25</td>
-          <td>
-            <button class="btn btn-warning btn-sm edit-btn" data-bs-toggle="modal" data-bs-target="#editModal"
-              title="Edit">
-              <i class="bi bi-pencil"></i>
-            </button>
-            <button class="btn btn-danger btn-sm delete-btn" data-bs-toggle="modal"
-              data-bs-target="#deleteModal" title="Hapus">
-              <i class="bi bi-trash"></i>
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>Bridie</td>
-          <td>ghjklf</td>
-          <td>2014-12-01</td>
-          <td>2014-12-05</td>
-          <td>
-            <button class="btn btn-warning btn-sm edit-btn" data-bs-toggle="modal" data-bs-target="#editModal"
-              title="Edit">
-              <i class="bi bi-pencil"></i>
-            </button>
-            <button class="btn btn-danger btn-sm delete-btn" data-bs-toggle="modal"
-              data-bs-target="#deleteModal" title="Hapus">
-              <i class="bi bi-trash"></i>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+        <table id="siswa-table" class="table table-striped table-hover pt-2 " style="font-size: 0.8rem;">
+            <thead class="table-primary">
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">NISN</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Kelas</th>
+                    <th scope="col">Jurusan</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Tempat PKL</th>
+                    <th scope="col">Opsi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data akan diisi secara dinamis -->
+            </tbody>
+        </table>
   @endsection
 
   
@@ -109,4 +89,26 @@
   </div>
   @endsection
 
- 
+ @section('script')
+ <script>
+  $(document).ready(function() {
+            $('#siswa-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('data.siswa') }}",
+                columns: [
+                    { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
+                    { data: 'nisn', name: 'nisn' },
+                    { data: 'name', name: 'name' },
+                    { data: 'kelas', name: 'kelas' },
+                    { data: 'jurusan', name: 'jurusan' },
+                    { data: 'username', name: 'username' },
+                    { data: 'role', name: 'role' },
+                    { data: 'pkl', name: 'pkl' },
+                    { data: 'opsi', name: 'opsi', orderable: false, searchable: false }
+                ]
+            });
+        });
+ </script>
+
+ @endsection

@@ -16,6 +16,7 @@ class JurusanSeeder extends Seeder
         DB::table('jurusans')->insert([
             'nama_jurusan' => 'Teknik Komputer dan Jaringan',
             'kode_jurusan' => 'TKJ',
+            'durasi_belajar' => 3,
             'deskripsi' => 'Jurusan yang mempelajari tentang komputer, jaringan, dan teknologi informasi.',
             'created_at' => now(),
             'updated_at' => now(),

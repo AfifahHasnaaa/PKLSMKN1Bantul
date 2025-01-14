@@ -41,6 +41,7 @@ class UserSeeder extends Seeder
             'role' => 'siswa',
             'kelas' => 'XII RPL 1',
             'jurusan_id' => 1, // Ganti dengan ID jurusan yang sesuai
+            'tempat_pkl' => 1, // Ganti dengan ID instansi yang sesuai
             'nisn' => '1234567890',
             'foto_profile' => 'profile-img.jpg',
         ]);
@@ -65,9 +66,7 @@ class UserSeeder extends Seeder
             'username' => 'instansipkl',
             'password' => Hash::make('password'), // Ganti dengan password aman
             'role' => 'instansi',
-            'instansi_name' => 'PT Contoh Sukses',
-            'instansi_address' => 'Jl. Contoh No. 123',
-            'instansi_contact' => '08123456789',
+            'instansi_id' => 1,
             'foto_profile' => 'profile-img.jpg',
         ]);
         $instansi->assignRole($instansiRole);

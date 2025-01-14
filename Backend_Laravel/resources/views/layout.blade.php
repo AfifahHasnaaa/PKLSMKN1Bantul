@@ -21,8 +21,9 @@
   <link href="{{ asset('assets/vendor/quill/quill.snow.css')}}" rel="stylesheet">
   <link href="{{ asset('assets/vendor/quill/quill.bubble.css')}}" rel="stylesheet">
   <link href="{{ asset('assets/vendor/remixicon/remixicon.css')}}" rel="stylesheet">
-  <link href="{{ asset('assets/vendor/simple-datatables/style.css')}}" rel="stylesheet">
+  {{-- <link href="{{ asset('assets/vendor/simple-datatables/style.css')}}" rel="stylesheet"> --}}
   <link href="{{ asset('assets/css/style.css')}}" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
   @yield('style')
 </head>
 
@@ -106,35 +107,52 @@
             <a class="nav-link {{ Request::is('list-user', 'tambah-user') ? '' : 'collapsed' }}" data-bs-target="#User" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-menu-button-wide"></i><span>Manajemen User</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="User" class="nav-content collapse {{ Request::is('list-user', 'tambah-user') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+            <ul id="User" class="nav-content collapse {{ Request::is('list-siswa','list-guru', 'tambah-user','list-pembimbing-instansi') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="{{ route('list.user') }}" class="{{ Request::is('list-user') ? 'active' : '' }}">
-                        <i class="bi bi-circle"></i><span>List User</span>
+                    <a href="{{ route('list.siswa') }}" class="{{ Request::is('list-siswa') ? 'active' : '' }}">
+                        <i class="bi bi-circle"></i><span>List Siswa</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('list.guru') }}" class="{{ Request::is('list-guru') ? 'active' : '' }}">
+                        <i class="bi bi-circle"></i><span>List Guru</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('list.pembimbing.instansi') }}" class="{{ Request::is('list-pembimbing-instansi') ? 'active' : '' }}">
+                        <i class="bi bi-circle"></i><span>List Pembimbing Instansi</span>
+                    </a>
+                </li>
+                
                 <li>
                     <a href="{{ route('tambah.user') }}" class="{{ Request::is('tambah-user') ? 'active' : '' }}">
                         <i class="bi bi-circle"></i><span>Tambah User</span>
                     </a>
                 </li>
+                
             </ul>
         </li>
 
         <!-- Manajemen Role -->
         <li class="nav-item">
-            <a class="nav-link {{ Request::is('list-role') ? '' : 'collapsed' }}" data-bs-target="#Role" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-menu-button-wide"></i><span>Manajemen Role</span><i class="bi bi-chevron-down ms-auto"></i>
+            <a class="nav-link {{ Request::is('list-instansi') ? '' : 'collapsed' }}" data-bs-target="#Instansi" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-menu-button-wide"></i><span>Manajemen Instansi</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="Role" class="nav-content collapse {{ Request::is('list-role') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+            <ul id="Instansi" class="nav-content collapse {{ Request::is('list-instansi','tambah-instansi') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="{{ route('list.role') }}" class="{{ Request::is('list-role') ? 'active' : '' }}">
-                        <i class="bi bi-circle"></i><span>List Role</span>
+                    <a href="{{ route('list.instansi') }}" class="{{ Request::is('list-instansi') ? 'active' : '' }}">
+                        <i class="bi bi-circle"></i><span>List Instansi</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('tambah.instansi') }}" class="{{ Request::is('tambah-instansi') ? 'active' : '' }}">
+                        <i class="bi bi-circle"></i><span>Tambah Instansi</span>
                     </a>
                 </li>
             </ul>
         </li>
         @endrole
-        @if (!Auth::user()->hasRole('admin'))
+        @if (Auth::user()->hasRole('siswa'))
         <!-- Jurnal -->
         <li class="nav-item">
             <a class="nav-link {{ Request::is('jurnal') ? '' : 'collapsed' }}" data-bs-target="#jurnal" data-bs-toggle="collapse" href="#">
@@ -158,6 +176,20 @@
                 <li>
                     <a href="{{ route('laporan') }}" class="{{ Request::is('laporan') ? 'active' : '' }}">
                         <i class="bi bi-circle"></i><span>Hasil Akhir</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        @endif
+        @if (Auth::user()->hasRole('guru') || Auth::user()->hasRole('instansi'))
+        <li class="nav-item">
+            <a class="nav-link {{ Request::is('semua-siswa') ? '' : 'collapsed' }}" data-bs-target="#Siswa" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-journal-text"></i><span>Siswa</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="Siswa" class="nav-content collapse {{ Request::is('semua-siswa') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{{ route('semua.siswa') }}" class="{{ Request::is('semua-siswa') ? 'active' : '' }}">
+                        <i class="bi bi-circle"></i><span>List Siswa</span>
                     </a>
                 </li>
             </ul>
@@ -219,10 +251,12 @@
   <script src="{{ asset('assets/vendor/chart.js/chart.umd.js')}}"></script>
   <script src="{{ asset('assets/vendor/echarts/echarts.min.js')}}"></script>
   <script src="{{ asset('assets/vendor/quill/quill.js')}}"></script>
-  <script src="{{ asset('assets/vendor/simple-datatables/simple-datatables.js')}}"></script>
+  {{-- <script src="{{ asset('assets/vendor/simple-datatables/simple-datatables.js')}}"></script> --}}
   <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js')}}"></script>
   <script src="{{ asset('assets/vendor/php-email-form/validate.js')}}"></script>
   <script src="{{ asset('assets/js/main.js')}}"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
   @yield('script')
   
 </body>

@@ -23,6 +23,9 @@ class DatabaseSeeder extends Seeder
             JurusanSeeder::class
         );
         $this->call(
+            InstansiSeeder::class
+        );
+        $this->call(
             UserSeeder::class
         );
     }

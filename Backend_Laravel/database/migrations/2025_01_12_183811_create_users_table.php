@@ -25,15 +25,19 @@ return new class extends Migration
             $table->unsignedBigInteger('jurusan_id')->nullable()->comment('Relasi ke tabel jurusan');
             $table->foreign('jurusan_id')->references('id')->on('jurusans')->onDelete('set null');
             $table->string('nisn')->unique()->nullable()->comment('Nomor Induk Siswa Nasional');
+
+            // Relasi ke tabel instansi untuk user siswa tempat_pkl
+            $table->unsignedBigInteger('tempat_pkl')->nullable()->comment('Relasi ke tabel instansi');
+            $table->foreign('tempat_pkl')->references('id')->on('instansis')->onDelete('set null');
+            
             
             // Kolom tambahan untuk guru
             $table->string('nip')->unique()->nullable()->comment('Nomor Induk Pegawai');
             // $table->string('mapel')->nullable()->comment('Mata pelajaran yang diajarkan');
-
-            // Kolom tambahan untuk instansi
-            $table->string('instansi_name')->nullable()->comment('Nama Instansi PKL');
-            $table->string('instansi_address')->nullable()->comment('Alamat Instansi PKL');
-            $table->string('instansi_contact')->nullable()->comment('Kontak Instansi PKL');
+            // Relasi ke tabel jurusan
+            $table->unsignedBigInteger('instansi_id')->nullable()->comment('Relasi ke tabel instansi');
+            $table->foreign('instansi_id')->references('id')->on('instansis')->onDelete('set null');
+            
             $table->string('foto_profile')->nullable()->comment('Foto Profile');
             
             $table->timestamps();
