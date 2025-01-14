@@ -17,18 +17,18 @@
     <div class="row text-center">
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h5 class="card-title">Daftar Nilai</h5>
+        @hasrole('guru')
         <div>
-          <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#unduhModal"
-          title="Unduh">Download 
-            <i class="bi bi-download"></i>
-          </button>
+          <a href="{{ route('nilai.input',['id' => $jurnal->id_siswa] ) }}" class="btn btn-success btn-sm">Input Nilai <i class="bi bi-plus"></i>
+          </a>
         </div>
+        @endhasrole
       </div>
       <div class="col-xl-3">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title" style="font-weight: bolder;">Nilai Jurnal</h5>
-            <p style="font-weight: bold;font-size:xx-large;">98</p>
+            <p style="font-weight: bold;font-size:xx-large;">{{ $nilaiJurnal }}</p>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verticalycentered" style="font-weight:300;font-size:small;">
               Lihat Detail
             </button>
@@ -40,7 +40,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                    98 kategori baik
+                    {{ $nilaiJurnal }} 
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -55,7 +55,7 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title" style="font-weight: bolder;">Nilai Presentasi</h5>
-            <p style="font-weight: bold;font-size:xx-large;">99</p>
+            <p style="font-weight: bold;font-size:xx-large;">{{ $nilaiPresentasi }}</p>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verticalycentered" style="font-weight:300;font-size:small;">
               Lihat Detail
             </button>
@@ -67,7 +67,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                    99 kategori baik
+                    {{ $nilaiPresentasi }}
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -81,7 +81,7 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title" style="font-weight: bolder;">Nilai Laporan</h5>
-            <p style="font-weight: bold;font-size:xx-large;">100</p>
+            <p style="font-weight: bold;font-size:xx-large;">{{ $nilaiLaporan }}</p>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verticalycentered" style="font-weight:300;font-size:small;">
               Lihat Detail
             </button>
@@ -93,7 +93,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                    100 kategori baik
+                    {{ $nilaiLaporan }} 
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -108,7 +108,7 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title" style="font-weight: bolder;">Nilai Aakhir</h5>
-            <p style="font-weight: bold;font-size:xx-large;">98,45</p>
+            <p style="font-weight: bold;font-size:xx-large;">{{ $nilaiAkhir }}</p>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verticalycentered" style="font-weight:300;font-size:small;">
               Lihat Detail
             </button>
@@ -120,7 +120,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                    98,45 kategori baik
+                    {{ $nilaiAkhir }} 
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

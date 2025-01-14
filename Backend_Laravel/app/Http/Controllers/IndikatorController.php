@@ -38,6 +38,7 @@ class IndikatorController extends Controller
                 $editUrl = route('indikator.edit', $row->id);
                 $deleteUrl = route('indikator.destroy', $row->id);
                 $skorUrl = route('indikator.skor', $row->id);
+                $isiUrl = route('indikator.isi.create', $row->id);
                 return '
                     <a href="' .
                     $editUrl .
@@ -55,7 +56,10 @@ class IndikatorController extends Controller
                     </form>
                     <a href="' .
                     $skorUrl .
-                    '" class="btn btn-sm btn-info m-1">Input Nilai</a>';
+                    '" class="btn btn-sm btn-info m-1">Input Nilai</a>
+                    <a href="' .
+                    $isiUrl .
+                    '" class="btn btn-sm btn-primary m-1">Update Jurnal</a>';
             })
             ->make(true);
     }
@@ -170,5 +174,37 @@ class IndikatorController extends Controller
         return redirect()
             ->route('show.jurnal', ['id' => $indikator->id_jurnal])
             ->with('success', 'Skor berhasil diUpdate');
+    }
+
+    public function isiCreate($id)
+    {
+        $indikator = Indikator::find($id);
+        return view('user.jurnal.isiIndikator', compact('indikator'));
+    }
+
+    public function isiUpdate(Request $request, $id)
+    {
+        // Validasi input
+        $validated = $request->validate([
+            'indikator' => 'required',
+            'deskripsi' => 'required',
+            'status' => 'required',
+        ]);
+
+        // Cari data indikator berdasarkan ID
+        $indikator = Indikator::findOrFail($id);
+
+        // Update data indikator
+        $indikator->indikator = $validated['indikator'];
+        $indikator->deskripsi = $validated['deskripsi'];
+        $indikator->status = $validated['status'];
+        $indikator->tanggal_submit = now();
+        $indikator->skor = 0;
+        $indikator->save();
+
+        // Redirect dengan pesan sukses
+        return redirect()
+            ->route('show.jurnal', ['id' => $indikator->id_jurnal])
+            ->with('success', 'Indikator berhasil diupdate');
     }
 }

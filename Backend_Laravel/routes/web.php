@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\IndikatorController;
 use App\Http\Controllers\InstansiController;
 use App\Http\Controllers\JurnalController;
+use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -47,7 +48,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('delete-instansi/{id}', [InstansiController::class, 'destroy'])->name('delete.instansi');
     // siswa
     Route::get('jurnal', [SiswaController::class, 'jurnal'])->name('index.jurnal');
-    Route::get('laporan', [SiswaController::class, 'laporan'])->name('laporan');
+    Route::get('laporan/{id}', [SiswaController::class, 'laporan'])->name('laporan');
 
     //Guru dan Instansi
     Route::get('semua-siswa', [JurnalController::class, 'semuaSiswa'])->name('semua.siswa');
@@ -68,6 +69,16 @@ Route::middleware(['auth'])->group(function () {
     Route::put('update-skor-indikator/{id}', [IndikatorController::class, 'updateSkor'])->name('indikator.update.skor');
     Route::put('update-indikator/{id}', [IndikatorController::class, 'update'])->name('indikator.update');
     Route::delete('delete-indikator/{id}', [IndikatorController::class, 'destroy'])->name('indikator.destroy');
+
+    //isi jurnal harian
+    Route::get('/isi-indikator/{id}', [IndikatorController::class, 'isiCreate'])->name('indikator.isi.create');
+    Route::put('update-isi-indikator/{id}', [IndikatorController::class, 'isiUpdate'])->name('indikator.isi.update');
+
+    //input nilai laporan dan presentasi
+    Route::get('/nilai-input/{id}', [NilaiController::class, 'create'])->name('nilai.input');
+    Route::post('/nilai-store/{id}', [NilaiController::class, 'store'])->name('nilai.store');
+    
+
 
     
 });

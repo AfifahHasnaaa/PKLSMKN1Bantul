@@ -90,4 +90,9 @@ class User extends Authenticatable
         return $this->hasMany(Indikator::class, 'id_siswa');
     }
 
+    public function nilaiSiswa()
+    {
+        return $this->hasMany(Nilai::class, 'id_siswa');
+    }
+
 }

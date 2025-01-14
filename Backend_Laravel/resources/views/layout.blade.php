@@ -160,7 +160,7 @@
             </a>
             <ul id="jurnal" class="nav-content collapse {{ Request::is('jurnal') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="{{ route('index.jurnal') }}" class="{{ Request::is('jurnal') ? 'active' : '' }}">
+                    <a href="{{ route('show.jurnal',['id' => auth()->user()->id]) }}" class="{{ Request::is('jurnal') ? 'active' : '' }}">
                         <i class="bi bi-circle"></i><span>Jurnal Harian</span>
                     </a>
                 </li>
@@ -174,7 +174,7 @@
             </a>
             <ul id="Laporan" class="nav-content collapse {{ Request::is('laporan') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="{{ route('laporan') }}" class="{{ Request::is('laporan') ? 'active' : '' }}">
+                    <a href="{{ route('laporan',['id' => auth()->user()->id]) }}" class="{{ Request::is('laporan') ? 'active' : '' }}">
                         <i class="bi bi-circle"></i><span>Hasil Akhir</span>
                     </a>
                 </li>

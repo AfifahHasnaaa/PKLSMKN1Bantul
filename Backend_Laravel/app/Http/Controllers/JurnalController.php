@@ -33,10 +33,6 @@ class JurnalController extends Controller
 
             return DataTables::of($users)
                 ->addIndexColumn()
-                ->addColumn('jurusan', function ($row) {
-                    // Ambil nama jurusan melalui relasi
-                    return $row->jurusan ? $row->jurusan->nama_jurusan : '-';
-                })
                 ->addColumn('pkl', function ($row) {
                     // Ambil nama instansi melalui relasi tempatPkl -> instansi
                     return $row->tempat_pkl ? $row->tempatPkl->instansi_name : 'Tidak Ada';
@@ -66,7 +62,11 @@ class JurnalController extends Controller
                         </form>'
                         : '<a href="/buat-jurnal/' . $row->id . '" style="font-size:0.7rem;font-weight: 700;" class="btn btn-primary">Buat Jurnal</a>';
                 })
-                ->rawColumns(['jurnal', 'opsi'])
+                ->addColumn('laporan', function ($row) {
+                    // Ambil nama instansi melalui relasi tempatPkl -> instansi
+                    return '<a href="/laporan/' . $row->id . '" class="btn btn-warning" style="font-size:0.7rem;font-weight: 700;">Lihat Laporan</a>';
+                })
+                ->rawColumns(['jurnal', 'opsi','laporan'])
                 ->make(true);
         }
     }

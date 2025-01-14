@@ -28,8 +28,8 @@
                     <th scope="col">NISN</th>
                     <th scope="col">Name</th>
                     <th scope="col">Kelas</th>
-                    <th scope="col" class="text-center">Jurusan</th>
                     <th scope="col">Tempat PKL</th>
+                    <th scope="col">Laporan Nilai</th>
                     <th scope="col" class="text-center">Jurnal</th>
                     <th scope="col" class="text-center">Opsi</th>
                 </tr>
@@ -99,10 +99,10 @@
                     { data: 'nisn', name: 'nisn' },
                     { data: 'name', name: 'name' },
                     { data: 'kelas', name: 'kelas' },
-                    { data: 'jurusan', name: 'jurusan' },
                     { data: 'pkl', name: 'pkl' },
+                    { data: 'laporan', name: 'laporan' },
                     { data: 'jurnal', name: 'jurnal' },
-                    { data: 'opsi', name: 'opsi', orderable: false, searchable: false }
+                    { data: 'opsi', name: 'opsi', orderable: false, searchable: false },
                 ]
             });
         });
