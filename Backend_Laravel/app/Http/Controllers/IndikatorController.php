@@ -39,27 +39,44 @@ class IndikatorController extends Controller
                 $deleteUrl = route('indikator.destroy', $row->id);
                 $skorUrl = route('indikator.skor', $row->id);
                 $isiUrl = route('indikator.isi.create', $row->id);
-                return '
-                    <a href="' .
-                    $editUrl .
-                    '" class="btn btn-sm btn-primary m-1">Edit</a>
-                    <form method="POST" action="' .
-                    $deleteUrl .
-                    '" style="display:inline;" onsubmit="return confirm(\'Apakah Anda yakin ingin menghapus Indikator Jurnal ini?\')">
-                        ' .
-                    csrf_field() .
-                    '
-                        ' .
-                    method_field('DELETE') .
-                    '
-                        <button type="submit" class="btn btn-sm btn-danger m-1">Hapus</button>
-                    </form>
-                    <a href="' .
-                    $skorUrl .
-                    '" class="btn btn-sm btn-info m-1">Input Nilai</a>
-                    <a href="' .
-                    $isiUrl .
-                    '" class="btn btn-sm btn-primary m-1">Update Jurnal</a>';
+
+                $actionButtons = '';
+
+                if (auth()->user()->hasRole('siswa')) {
+                    $actionButtons .=
+                        '
+            <a href="' .
+                        $isiUrl .
+                        '" class="btn btn-sm btn-primary m-1">Update Jurnal</a>
+        ';
+                } elseif (auth()->user()->hasRole('guru')) {
+                    $actionButtons .=
+                        '
+            <a href="' .
+                        $editUrl .
+                        '" class="btn btn-sm btn-primary m-1">Edit</a>
+            <form method="POST" action="' .
+                        $deleteUrl .
+                        '" style="display:inline;" onsubmit="return confirm(\'Apakah Anda yakin ingin menghapus Indikator Jurnal ini?\')">
+                ' .
+                        csrf_field() .
+                        '
+                ' .
+                        method_field('DELETE') .
+                        '
+                <button type="submit" class="btn btn-sm btn-danger m-1">Hapus</button>
+            </form>
+        ';
+                } elseif (auth()->user()->hasRole('instansi')) {
+                    $actionButtons .=
+                        '
+            <a href="' .
+                        $skorUrl .
+                        '" class="btn btn-sm btn-primary m-1">Update Nilai</a>
+        ';
+                }
+
+                return $actionButtons;
             })
             ->make(true);
     }

@@ -62,12 +62,14 @@
 
                           <div class="d-flex justify-content-between align-items-center mb-3">
                               <h5 class="card-title">Daftar Jurnal Harian</h5>
+                              @hasrole('guru')
                               <div>
                                   <a href="{{ route('indikator.tambah', ['id' => $jurnal->id]) }}"
                                       class="btn btn-success btn-sm" id="download-btn">Tambah Indikator
                                       <i class="bi bi-plus-square-dotted"></i>
                                   </a>
                               </div>
+                                @endhasrole
                           </div>
 
                           <table class="table table-striped table-hover datatable pt-2" style="font-size: 0.8rem;"
