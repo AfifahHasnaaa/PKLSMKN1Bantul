@@ -22,8 +22,8 @@
         <h1>Tambah Indikator</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="user.html">Home</a></li>
-                <li class="breadcrumb-item">Indikator</li>
+                <li class="breadcrumb-item"><a href="{{ route('semua.siswa') }}">List Semua Siswa</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('show.jurnal',['id' => $jurnal->id]) }}">Jurnal</a></li>
                 <li class="breadcrumb-item active">Tambah Indikator</li>
             </ol>
         </nav>
@@ -64,6 +64,7 @@
                 <!-- Submit Button -->
                 <div class="row mb-3">
                     <div class="col-sm-10">
+                        <a href="{{ route('show.jurnal',['id' => $jurnal->id]) }}" class="btn btn-secondary">Back</a>
                         <button type="submit" class="btn btn-primary">Tambah Indikator</button>
                     </div>
                 </div>

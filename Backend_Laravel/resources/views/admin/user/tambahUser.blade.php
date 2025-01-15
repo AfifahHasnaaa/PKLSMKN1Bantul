@@ -22,8 +22,7 @@
           <h1>Tambah User</h1>
           <nav>
               <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="user.html">Home</a></li>
-                  <li class="breadcrumb-item">User</li>
+                  <li class="breadcrumb-item"><a href="{{ route('list.siswa') }}">List User</a></li>
                   <li class="breadcrumb-item active">Tambah User</li>
               </ol>
           </nav>

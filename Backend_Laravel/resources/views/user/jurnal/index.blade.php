@@ -15,8 +15,9 @@
           <h1>Jurnal Harian</h1>
           <nav>
               <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="user.html">Home</a></li>
-                  <li class="breadcrumb-item">Jurnal</li>
+                @if (auth()->user()->hasRole('guru') || auth()->user()->hasRole('instansi'))
+                <li class="breadcrumb-item"><a href="{{ route('semua.siswa') }}">List Semua Siswa</a></li>
+                @endif
                   <li class="breadcrumb-item active">Jurnal Harian</li>
               </ol>
           </nav>

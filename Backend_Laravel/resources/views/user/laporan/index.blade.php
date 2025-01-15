@@ -8,9 +8,10 @@
       <h1>Nilai</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="user.html">Home</a></li>
-          <li class="breadcrumb-item">Laporan</li>
-          <li class="breadcrumb-item active">Nilai</li>
+          @if (auth()->user()->hasrole('guru') || auth()->user()->hasrole('instansi'))
+          <li class="breadcrumb-item"><a href="{{ route('semua.siswa') }}">List Siswa</a></li>
+          @endif
+          <li class="breadcrumb-item active">Laporan Nilai</li>
         </ol>
       </nav>
     </div>

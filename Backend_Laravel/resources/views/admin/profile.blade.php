@@ -8,8 +8,6 @@
       <h1>Profile</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="user.html">Home</a></li>
-          <li class="breadcrumb-item">Users</li>
           <li class="breadcrumb-item active">Profile</li>
         </ol>
       </nav>
@@ -63,27 +61,27 @@
                 </div>
 
                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-                  <form>
+                  <form action="{{ route('profile.akun',['id' => auth()->user()->id]) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
                     <div class="row mb-3">
                       <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                       <div class="col-md-8 col-lg-9">
                         <img src="{{ asset('assets/img/foto_profile/' . auth()->user()->foto_profile) }}" alt="Profile">
                         <div class="pt-2">
-                          <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
-                          <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                          <input type="file" name="foto_profile" id="foto_profile" class="form-control">
                         </div>
                       </div>
                     </div>
                     <div class="row mb-3">
                       <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="fullName" type="text" class="form-control" id="fullName" value="Kevin Anderson">
+                        <input name="name" type="text" class="form-control" id="fullName" value="{{ auth()->user()->name }}">
                       </div>
                     </div>
                     <div class="row mb-3">
                       <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Email</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="fullName" type="email" class="form-control" id="fullName" value="">
+                        <input name="email" type="email" class="form-control" id="fullName" value="{{ auth()->user()->email }}">
                       </div>
                     </div>
                     <div class="text-center">
@@ -93,7 +91,8 @@
                 </div>
 
                 <div class="tab-pane fade pt-3" id="profile-change-password">
-                  <form>
+                  <form action="{{ route('profile.password',['id' => auth()->user()->id]) }}" method="POST">
+                    @csrf
                     <div class="row mb-3">
                       <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
                       <div class="col-md-8 col-lg-9">
@@ -104,12 +103,6 @@
                       <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
                       <div class="col-md-8 col-lg-9">
                         <input name="newpassword" type="password" class="form-control" id="newPassword">
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="renewpassword" type="password" class="form-control" id="renewPassword">
                       </div>
                     </div>
                     <div class="text-center">

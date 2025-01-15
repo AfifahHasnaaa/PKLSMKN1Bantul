@@ -1,6 +1,6 @@
   @extends('layout')
   @section('title')
-      <title>Tambah User - Admin</title>
+      <title>Edit User</title>
   @endsection
   @section('content')
         @if ($errors->any())
@@ -19,12 +19,11 @@
           </div>
       @endif
       <div class="pagetitle">
-          <h1>Tambah User</h1>
+          <h1>Edit User</h1>
           <nav>
               <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="user.html">Home</a></li>
-                  <li class="breadcrumb-item">User</li>
-                  <li class="breadcrumb-item active">Tambah User</li>
+                  <li class="breadcrumb-item"><a href="{{ route('list.siswa') }}">List User</a></li>
+                  <li class="breadcrumb-item active">Edit User</li>
               </ol>
           </nav>
       </div>

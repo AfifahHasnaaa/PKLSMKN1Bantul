@@ -15,9 +15,7 @@
       <h1>Daftar user</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="user.html">Home</a></li>
-          <li class="breadcrumb-item">User</li>
-          <li class="breadcrumb-item active">Daftar User</li>
+          <li class="breadcrumb-item active">List User</li>
         </ol>
       </nav>
     </div>

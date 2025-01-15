@@ -78,7 +78,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/nilai-input/{id}', [NilaiController::class, 'create'])->name('nilai.input');
     Route::post('/nilai-store/{id}', [NilaiController::class, 'store'])->name('nilai.store');
     
-
-
+    //profile
+    Route::post('profile-akun/{id}', [UserController::class, 'profileAkun'])->name('profile.akun');
+    Route::post('profile-password/{id}', [UserController::class, 'profilePassword'])->name('profile.password');
     
 });
