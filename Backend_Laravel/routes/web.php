@@ -22,7 +22,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('faq', [UserController::class, 'faq'])->name('faq');
     Route::get('contact', [UserController::class, 'contact'])->name('contact');
 
-
     // admin
     Route::get('list-siswa', [AdminController::class, 'listSiswa'])->name('list.siswa');
     Route::get('list-guru', [AdminController::class, 'listGuru'])->name('list.guru');
@@ -37,7 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('data-guru', [AdminController::class, 'dataGuru'])->name('data.guru');
     Route::get('data-pembimbing-instansi', [AdminController::class, 'dataInstansi'])->name('data.pembimbing.instansi');
     Route::get('data-instansi', [InstansiController::class, 'dataInstansi'])->name('data.instansi');
-    
+
     //instansi
     Route::get('list-pembimbing-instansi', [AdminController::class, 'listPembimbingInstansi'])->name('list.pembimbing.instansi');
     Route::get('list-instansi', [InstansiController::class, 'index'])->name('list.instansi');
@@ -77,9 +76,12 @@ Route::middleware(['auth'])->group(function () {
     //input nilai laporan dan presentasi
     Route::get('/nilai-input/{id}', [NilaiController::class, 'create'])->name('nilai.input');
     Route::post('/nilai-store/{id}', [NilaiController::class, 'store'])->name('nilai.store');
-    
+
     //profile
     Route::post('profile-akun/{id}', [UserController::class, 'profileAkun'])->name('profile.akun');
     Route::post('profile-password/{id}', [UserController::class, 'profilePassword'])->name('profile.password');
-    
+
+    Route::get('/chart-data', [UserController::class, 'getChartData']);
+    Route::get('/jurnal/export/{id}', [JurnalController::class, 'exportExcel'])->name('jurnal.export');
+    Route::post('users/import', [UserController::class, 'importUsers'])->name('users.import');
 });

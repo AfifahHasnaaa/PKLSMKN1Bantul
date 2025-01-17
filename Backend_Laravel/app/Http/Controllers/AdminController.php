@@ -56,6 +56,7 @@ class AdminController extends Controller
             'instansi_name' => 'nullable',
             'instansi_address' => 'nullable',
             'instansi_contact' => 'nullable',
+            'tempat_pkl' => 'nullable',
             'foto_profile' => 'nullable',
         ]);
 
@@ -82,6 +83,7 @@ class AdminController extends Controller
             $userData['kelas'] = $validatedData['kelas'];
             $userData['jurusan_id'] = $validatedData['jurusan_id'];
             $userData['nisn'] = $validatedData['nisn'];
+            $userData['tempat_pkl'] = $validatedData['tempat_pkl'];
         } elseif ($validatedData['role'] === 'guru') {
             $userData['nip'] = $validatedData['nip'];
         } elseif ($validatedData['role'] === 'instansi') {

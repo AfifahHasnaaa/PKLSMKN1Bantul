@@ -30,6 +30,7 @@ class IndikatorController extends Controller
             ->select('indikators.*')
             ->where('id_jurnal', $id);
         return DataTables::of($indikators)
+                ->addIndexColumn()
             ->addColumn('tanggal_submit', function ($row) {
                 // Ambil nama jurusan melalui relasi
                 return $row->tanggal_submit ? $row->tanggal_submit : 'Belum Diisi Siswa';

@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\UsersImport;
 
 class UserController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('auth.login');
     }
 
@@ -28,7 +32,10 @@ class UserController extends Controller
     }
     public function dashboard()
     {
-        return view('dashboard');
+        $siswa = User::where('role', 'siswa')->count();
+        $guru = User::where('role', 'guru')->count();
+        $instansi = User::where('role', 'instansi')->count();
+        return view('dashboard', compact('siswa', 'guru', 'instansi'));
     }
 
     public function profile()
@@ -53,7 +60,8 @@ class UserController extends Controller
         return redirect()->route('landingPage');
     }
 
-    public function profileAkun(Request $request,$id){
+    public function profileAkun(Request $request, $id)
+    {
         // Validasi input
         $request->validate([
             'name' => 'required',
@@ -72,10 +80,10 @@ class UserController extends Controller
 
         // Redirect kembali ke halaman profil dengan pesan sukses
         return back()->with('success', 'Profile updated successfully.');
-
     }
 
-    public function profilePassword(Request $request,$id){
+    public function profilePassword(Request $request, $id)
+    {
         // Validasi input
         $request->validate([
             'password' => 'required',
@@ -87,7 +95,8 @@ class UserController extends Controller
 
         // Periksa apakah password saat ini sesuai
         if (!Hash::check($request->input('password'), $user->password)) {
-            return redirect()->route('profile.password', ['id' => $id])
+            return redirect()
+                ->route('profile.password', ['id' => $id])
                 ->withErrors(['password' => 'Current password is incorrect.']);
         }
 
@@ -99,4 +108,26 @@ class UserController extends Controller
         return back()->with('success', 'Password updated successfully.');
     }
 
+    public function getChartData()
+    {
+        $data = User::select([DB::raw('YEAR(created_at) as year'), DB::raw("SUM(CASE WHEN role = 'siswa' THEN 1 ELSE 0 END) as siswa"), DB::raw("SUM(CASE WHEN role = 'guru' THEN 1 ELSE 0 END) as guru"), DB::raw("SUM(CASE WHEN role = 'instansi' THEN 1 ELSE 0 END) as instansi")])
+            ->groupBy(DB::raw('YEAR(created_at)'))
+            ->orderBy('year')
+            ->get();
+
+        return response()->json($data);
+    }
+
+    public function importUsers(Request $request)
+    {
+        // Validasi file
+        $request->validate([
+            'file' => 'required|mimes:xlsx,csv',
+        ]);
+        $file = $request->file('file');
+        // Import file
+        Excel::import(new UsersImport, $file);
+
+        return back()->with('success', 'Data users berhasil diimpor.');
+    }
 }

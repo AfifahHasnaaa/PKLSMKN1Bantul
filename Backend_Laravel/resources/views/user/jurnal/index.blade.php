@@ -15,9 +15,9 @@
           <h1>Jurnal Harian</h1>
           <nav>
               <ol class="breadcrumb">
-                @if (auth()->user()->hasRole('guru') || auth()->user()->hasRole('instansi'))
-                <li class="breadcrumb-item"><a href="{{ route('semua.siswa') }}">List Semua Siswa</a></li>
-                @endif
+                  @if (auth()->user()->hasRole('guru') || auth()->user()->hasRole('instansi'))
+                      <li class="breadcrumb-item"><a href="{{ route('semua.siswa') }}">List Semua Siswa</a></li>
+                  @endif
                   <li class="breadcrumb-item active">Jurnal Harian</li>
               </ol>
           </nav>
@@ -64,13 +64,17 @@
                           <div class="d-flex justify-content-between align-items-center mb-3">
                               <h5 class="card-title">Daftar Jurnal Harian</h5>
                               @hasrole('guru')
-                              <div>
-                                  <a href="{{ route('indikator.tambah', ['id' => $jurnal->id]) }}"
-                                      class="btn btn-success btn-sm" id="download-btn">Tambah Indikator
-                                      <i class="bi bi-plus-square-dotted"></i>
+                                  <div>
+                                    <a href="{{ route('jurnal.export', ['id' => $jurnal->id]) }}"
+                                      class="btn btn-success btn-sm">
+                                      Export Excel <i class="bi bi-file-earmark-excel"></i>
                                   </a>
-                              </div>
-                                @endhasrole
+                                      <a href="{{ route('indikator.tambah', ['id' => $jurnal->id]) }}"
+                                          class="btn btn-success btn-sm" id="download-btn">Tambah Indikator
+                                          <i class="bi bi-plus-square-dotted"></i>
+                                      </a>
+                                  </div>
+                              @endhasrole
                           </div>
 
                           <table class="table table-striped table-hover datatable pt-2" style="font-size: 0.8rem;"
@@ -100,7 +104,7 @@
               $('#indikatorTable').DataTable({
                   processing: true,
                   serverSide: true,
-                  ajax: "{{ route('indikator.data',['id' => $jurnal->id]) }}",
+                  ajax: "{{ route('indikator.data', ['id' => $jurnal->id]) }}",
                   columnDefs: [{
                           targets: 0,
                           width: '100px'

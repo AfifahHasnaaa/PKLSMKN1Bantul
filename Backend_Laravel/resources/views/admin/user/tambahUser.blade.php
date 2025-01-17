@@ -30,6 +30,21 @@
 
       <div class="card">
           <div class="card-body">
+              <h5 class="card-title" type="button" data-bs-toggle="collapse" data-bs-target="#importUser"
+                  aria-expanded="false" aria-controls="importUser">
+                  Import Users By Excel
+              </h5>
+              <div class="collapse mt-3" id="importUser">
+                  <div class="card-body">
+                      <form action="{{ route('users.import') }}" method="POST" enctype="multipart/form-data" class="d-flex">
+                          @csrf
+                          <div class="form-group me-2">
+                              <input type="file" name="file" class="form-control" required>
+                          </div>
+                          <button type="submit" class="btn btn-primary btn-block">Import Data User</button>
+                      </form>
+                  </div>
+              </div>
               <h5 class="card-title">Tambah User</h5>
               <form enctype="multipart/form-data" action="{{ route('user.store') }}" method="POST">
                   @csrf
@@ -45,6 +60,8 @@
                           </select>
                       </div>
                   </div>
+
+
 
                   <!-- Common Fields -->
                   <div id="commonFields">
@@ -82,7 +99,8 @@
                       <div class="row mb-3">
                           <label for="foto_profile" class="col-sm-2 col-form-label">Foto Profil</label>
                           <div class="col-sm-10">
-                              <input type="file" name="foto_profile" id="foto_profile" class="form-control" accept="image/*">
+                              <input type="file" name="foto_profile" id="foto_profile" class="form-control"
+                                  accept="image/*">
                           </div>
                       </div>
                   </div>

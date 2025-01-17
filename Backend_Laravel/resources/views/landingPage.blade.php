@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Landing</title>
+  <title>Monitoring PKL TKJ</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
   <link href="assets/img/favicon.png" rel="icon">
@@ -43,7 +43,7 @@
       <div class="container">
         <div class="row gy-4">
           <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="zoom-out">
-            <h1>Monitor PKL</h1>
+            <h1>Monitor PKL TKJ</h1>
             <p style="font-weight: normal;">Memantau aktivitas siswa dengan mudah, memastikan transparansi dan akuntabilitas selama pelaksanaan PKL.</p>
             <div class="d-flex">
               <a href="#about" class="btn-get-started">Get Started</a>

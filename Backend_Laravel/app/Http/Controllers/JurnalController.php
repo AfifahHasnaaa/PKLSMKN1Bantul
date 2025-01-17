@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\JurnalHarianExport;
 use App\Models\Instansi;
 use App\Models\Jurnal;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
 class JurnalController extends Controller
@@ -177,5 +179,11 @@ class JurnalController extends Controller
 
         // Redirect kembali dengan pesan sukses
         return back()->with('success', 'Data jurnal berhasil dihapus.');
+    }
+
+   
+    public function exportExcel($id)
+    {
+        return Excel::download(new JurnalHarianExport($id), 'jurnal-harian.xlsx');
     }
 }
